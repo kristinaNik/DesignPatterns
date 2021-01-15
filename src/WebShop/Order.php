@@ -51,4 +51,17 @@ class Order
         return $this->quantity;
     }
 
+    /**
+     * @return array
+     */
+    public function getPayload(): array
+    {
+        return [
+            'sku' => $this->products->getSku(),
+            'unitPrice' => $this->products->getUnitPrice(),
+            'currency' => (string) $this->products->getUnitPrice()->getCurrency(),
+            'quantity' => $this->quantity,
+            'timestamp' => $this->products->getTimestamp()
+        ];
+    }
 }

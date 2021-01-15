@@ -47,6 +47,11 @@ class OrderProductTest extends  TestCase
 
         $this->assertEquals(2, $order->getQuantity());
 
+        $this->assertSame(
+            "Product1",
+            $order->getProducts()->getName()
+        );
+
         $this->assertEquals(
             'Product1',
             $order->getProducts()->getName()
@@ -137,6 +142,27 @@ class OrderProductTest extends  TestCase
         $this->assertEquals($product1->getName(), $order1->getProducts()->getName());
         $this->assertEquals($product2->getName(), $order2->getProducts()->getName());
         $this->assertNotEquals($order1, $order2);
+
+    }
+
+    public function testOrderPayload(): void
+    {
+        $product =  new PhysicalProduct(
+            Uuid::fromString('edc262a3-0d57-4801-84ff-81409a7a6183'),
+            'Product1',
+            new Money(12000, new Currency('EUR')),
+
+        );
+
+        $order = $this->orderHandler->add($product, 2);
+
+        $this->assertIsArray($order->getPayload());
+        $this->assertEquals(Uuid::fromString('edc262a3-0d57-4801-84ff-81409a7a6183'), $order->getPayload()["sku"]);
+        $this->assertArrayHasKey("sku", $order->getPayload());
+        $this->assertArrayHasKey("unitPrice", $order->getPayload());
+        $this->assertArrayHasKey("currency", $order->getPayload());
+        $this->assertArrayHasKey("quantity", $order->getPayload());
+        $this->assertArrayHasKey("timestamp", $order->getPayload());
 
     }
 }
