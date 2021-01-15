@@ -1,0 +1,32 @@
+{
+    "name": "kristina/design-patterns",
+    "description": "design patterns",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "kristinaNik",
+            "email": "kristina.nik93@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "DesignPatterns\\" : "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "DesignPatterns\\Tests\\" : "tests/"
+        }
+    },
+    "require": {
+        "moneyphp/money": "^3.3",
+        "ramsey/uuid": "^4.1",
+        "beberlei/assert": "^3.3"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.5"
+    }
+
+
+}
