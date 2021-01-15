@@ -26,12 +26,12 @@ class ComboProduct extends AbstractProduct
      */
     public function __construct(UuidInterface $uuid, string $name, array $products, Money $unitPrice = null)
     {
+        parent::__construct($uuid, $name, $unitPrice);
+
         Assertion::allIsInstanceOf($products, Product::class);
         Assertion::min(count($products),2);
 
         $this->products = array_values($products); //Get only values
-
-        parent::__construct($uuid, $name, $unitPrice);
     }
 
     /**

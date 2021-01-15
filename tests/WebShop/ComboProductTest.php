@@ -20,20 +20,20 @@ class ComboProductTest extends TestCase
         $products = [
             new PhysicalProduct(
                 Uuid::uuid4(),
-                'WebSummerCamp',
+                'WebShopProduct',
                 new Money(12000, new Currency('EUR')),
 
             ),
             new ComboProduct(Uuid::uuid4(), 'Nested Combo', [
                 new PhysicalProduct(
                     Uuid::uuid4(),
-                    'WebSummerCamp',
+                    'WebShopProduct',
                     new Money(9000, new Currency('EUR')),
 
                 ),
                 new PhysicalProduct(
                     Uuid::uuid4(),
-                    'WebSummerCamp',
+                    'WebShopProduct',
                     new Money(8000, new Currency('EUR')),
 
                 )
@@ -60,13 +60,13 @@ class ComboProductTest extends TestCase
         $products = [
             new PhysicalProduct(
                 Uuid::uuid4(),
-                'WebSummerCamp',
+                'WebShopProduct',
                 new Money(12000, new Currency('EUR')),
 
             ),
             new PhysicalProduct(
                 Uuid::uuid4(),
-                'WebSummerCamp',
+                'WebShopProduct',
                 new Money(9000, new Currency('EUR')),
 
             )
@@ -91,7 +91,7 @@ class ComboProductTest extends TestCase
         new ComboProduct(Uuid::uuid4(), 'Test', [
             new PhysicalProduct(
                 Uuid::uuid4(),
-                'WebSummerCamp',
+                'WebShopProduct',
                 new Money(12000, new Currency('EUR')),
 
             )
