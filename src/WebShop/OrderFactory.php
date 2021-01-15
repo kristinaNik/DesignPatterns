@@ -11,13 +11,15 @@ class OrderFactory
 {
 
     /**
-     * @param $productId
-     * @param $amount
+     * @param UuidInterface $productSku
+     * @param Money $amount
+     * @param $name
+     * @param \DateTimeImmutable $timestamp
      * @return Order
      */
-    public static  function createOrders(UuidInterface $productId, Money $amount): Order
+    public static  function createOrders(UuidInterface $productSku, Money $amount, string $name, \DateTimeImmutable $timestamp): Order
     {
-        return new Order($productId, $amount);
+        return new Order($productSku, $amount,$name, $timestamp);
     }
 
 }

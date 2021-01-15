@@ -1,8 +1,5 @@
 <?php
-
-
 namespace DesignPatterns\Tests\WebShop;
-
 
 use DesignPatterns\WebShop\ComboProduct;
 use DesignPatterns\WebShop\OrderHandler;
@@ -37,7 +34,7 @@ class OrderTest extends TestCase
     {
         $product =  new PhysicalProduct(
             Uuid::fromString('edc262a3-0d57-4801-84ff-81409a7a6183'),
-            'WebSummerCamp',
+            'Product1',
             new Money(12000, new Currency('EUR')),
 
         );
@@ -45,12 +42,17 @@ class OrderTest extends TestCase
         $order = $this->orderHandler->handle($product);
 
         $this->assertEquals(
+            'Product1',
+            $order->getProductName()
+        );
+
+        $this->assertEquals(
             new Money(12000, new Currency('EUR')),
             $order->getAmount()
         );
         $this->assertEquals(
             Uuid::fromString('edc262a3-0d57-4801-84ff-81409a7a6183'),
-            $order->getProductId()
+            $order->getProductSku()
         );
 
     }
@@ -59,31 +61,42 @@ class OrderTest extends TestCase
     {
         $products = [
             new PhysicalProduct(
-                Uuid::uuid4(),
-                'WebSummerCamp',
+                Uuid::fromString('edc262a3-0d57-4801-84ff-81409a7a6183'),
+                'Product1',
                 new Money(12000, new Currency('EUR')),
 
             ),
             new PhysicalProduct(
-                Uuid::uuid4(),
-                'WebSummerCamp',
+                Uuid::fromString('edc262a3-0d57-4801-84ff-81409a7a6183'),
+                'Product2',
                 new Money(9000, new Currency('EUR')),
 
             )
         ];
 
         $comboProduct = new ComboProduct(
-            Uuid::uuid4(),
-            'Test',
+            Uuid::fromString('edc262a3-0d57-4802-84ff-81409a7a6183'),
+            'TestComboProduct',
             $products,
         );
 
         $order = $this->orderHandler->handle($comboProduct);
 
         $this->assertEquals(
+            'TestComboProduct',
+            $order->getProductName()
+        );
+
+        $this->assertEquals(
             new Money(21000, new Currency('EUR')),
             $order->getAmount()
         );
+
+        $this->assertEquals(
+            Uuid::fromString('edc262a3-0d57-4802-84ff-81409a7a6183'),
+            $order->getProductSku()
+        );
+
 
     }
 
@@ -99,8 +112,10 @@ class OrderTest extends TestCase
         $order = $this->orderHandler->handle($product);
 
         $this->assertObjectHasAttribute("id", $order);
-        $this->assertObjectHasAttribute("productId", $order);
+        $this->assertObjectHasAttribute("productSku", $order);
+        $this->assertObjectHasAttribute("productName", $order);
         $this->assertObjectHasAttribute("amount", $order);
+        $this->assertObjectHasAttribute("timestamp", $order);
     }
 
 }

@@ -4,6 +4,7 @@
 namespace DesignPatterns\WebShop;
 
 
+use Money\Currency;
 use Money\Money;
 use Ramsey\Uuid\Nonstandard\Uuid;
 use Ramsey\Uuid\UuidInterface;
@@ -16,27 +17,39 @@ class Order
      */
     private $id;
 
+    private $timestamp;
+
     /**
      * @var
      */
-    private $productId;
+    private $productSku;
 
     /**
      * @var Money
      */
     private $amount;
 
+    /**
+     * @var string
+     */
+    private $productName;
+
 
     /**
      * Order constructor.
-     * @param $productId
-     * @param $amount
+     *
+     * @param UuidInterface $productSku
+     * @param Money $amount
+     * @param string $productName
+     * @param \DateTimeImmutable $timestamp
      */
-    public function __construct(UuidInterface $productId, Money $amount)
+    public function __construct(UuidInterface $productSku, Money $amount, string $productName, \DateTimeImmutable $timestamp)
     {
         $this->id = Uuid::uuid4();
-        $this->productId = $productId;
+        $this->productSku = $productSku;
         $this->amount = $amount;
+        $this->productName = $productName;
+        $this->timestamp = (int) $timestamp->format('U');
     }
 
 
@@ -51,17 +64,34 @@ class Order
     /**
      * @return mixed
      */
-    public function getProductId()
+    public function getProductSku()
     {
-        return $this->productId;
+        return Uuid::fromString($this->productSku);
     }
 
     /**
      * @return mixed
      */
-    public function getAmount()
+    public function getAmount(): Money
     {
         return $this->amount;
+    }
+
+    /**
+     * @return string
+     */
+    public function getProductName(): string
+    {
+        return $this->productName;
+    }
+
+
+    /**
+     * @return \DateTimeImmutable|false
+     */
+    public function getTimestamp()
+    {
+        return \DateTimeImmutable::createFromFormat('U', $this->timestamp);
     }
 
 }
