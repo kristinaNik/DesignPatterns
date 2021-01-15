@@ -23,11 +23,6 @@ class Order
     private int $quantity;
 
     /**
-     * @var \DateTimeImmutable|false
-     */
-    private $timestamp;
-
-    /**
      * Order constructor.
      * @param AbstractProduct $products
      * @param $quantity
@@ -38,7 +33,6 @@ class Order
         $this->id = random_int(1, 5000);
         $this->products = $products;
         $this->quantity  = $quantity;
-        $this->timestamp = \DateTimeImmutable::createFromFormat('U', $this->timestamp);
     }
 
     /**

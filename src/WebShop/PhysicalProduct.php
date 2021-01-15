@@ -8,8 +8,17 @@ use Ramsey\Uuid\UuidInterface;
 
 class PhysicalProduct extends AbstractProduct
 {
-    public function __construct(UuidInterface $uuid, string $name, Money $unitPrice)
+    /**
+     * PhysicalProduct constructor.
+     *
+     * @param UuidInterface $uuid
+     * @param string $name
+     * @param Money $unitPrice
+     * @param \DateTimeImmutable|null $timestamp
+     * @throws \Exception
+     */
+    public function __construct(UuidInterface $uuid, string $name, Money $unitPrice, \DateTimeImmutable $timestamp = null)
     {
-        parent::__construct($uuid, $name,  $unitPrice);
+        parent::__construct($uuid, $name,  $unitPrice, $timestamp);
     }
 }

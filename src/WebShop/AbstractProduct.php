@@ -27,18 +27,27 @@ class AbstractProduct implements Product
      */
     protected $unitPrice;
 
+    /**
+     * @var \DateTimeImmutable
+     */
+    protected $timestamp;
 
     /**
      * AbstractProduct constructor.
+     *
      * @param UuidInterface $uuid
      * @param string $name
      * @param Money|null $unitPrice
+     * @param \DateTimeImmutable|null $timestamp
+     * @throws \Exception
      */
-    public function __construct(UuidInterface $uuid, string $name,  Money $unitPrice=null)
+    public function __construct(UuidInterface $uuid, string $name,  Money $unitPrice=null,  \DateTimeImmutable $timestamp = null)
     {
         $this->sku = $uuid;
         $this->name = $name;
         $this->unitPrice = $unitPrice;
+        $timestamp = $timestamp ?: new \DateTimeImmutable('now', new \DateTimeZone('UTC'));
+        $this->timestamp = (int) $timestamp->format('U');
     }
 
 
@@ -67,5 +76,13 @@ class AbstractProduct implements Product
     {
         return  $this->unitPrice;
 
+    }
+
+    /**
+     * @return \DateTimeImmutable
+     */
+    public function getTimestamp(): \DateTimeImmutable
+    {
+        return \DateTimeImmutable::createFromFormat('U', $this->timestamp);
     }
 }
