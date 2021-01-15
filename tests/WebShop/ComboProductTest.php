@@ -1,6 +1,5 @@
 <?php
 
-
 namespace DesignPatterns\Tests\WebShop;
 
 use Assert\AssertionFailedException;
@@ -14,13 +13,16 @@ use DesignPatterns\WebShop\PhysicalProduct;
 class ComboProductTest extends TestCase
 {
 
+    /**
+     * @throws AssertionFailedException
+     */
     public function testComplexComboProductWithoutCustomPrice(): void
     {
         $products = [
             new PhysicalProduct(
                 Uuid::uuid4(),
                 'WebShopProduct',
-                2,
+
                 new Money(12000, new Currency('EUR')),
 
             ),
@@ -28,25 +30,22 @@ class ComboProductTest extends TestCase
                 new PhysicalProduct(
                     Uuid::uuid4(),
                     'WebShopProduct',
-                    1,
                     new Money(9000, new Currency('EUR')),
 
                 ),
                 new PhysicalProduct(
                     Uuid::uuid4(),
                     'WebShopProduct',
-                    1,
                     new Money(8000, new Currency('EUR')),
 
                 )
-            ],1)
+            ])
         ];
 
         $combo = new ComboProduct(
             Uuid::uuid4(),
             'Test',
             $products,
-            1
         );
 
         $this->assertEquals(
@@ -56,20 +55,21 @@ class ComboProductTest extends TestCase
     }
 
 
+    /**
+     * @throws AssertionFailedException
+     */
     public function testComboProductWithCustomPrice(): void
     {
         $products = [
             new PhysicalProduct(
                 Uuid::uuid4(),
                 'WebShopProduct',
-                1,
                 new Money(12000, new Currency('EUR')),
 
             ),
             new PhysicalProduct(
                 Uuid::uuid4(),
                 'WebShopProduct',
-                2,
                 new Money(9000, new Currency('EUR')),
 
             )
@@ -79,7 +79,6 @@ class ComboProductTest extends TestCase
             Uuid::uuid4(),
             'Test',
             $products,
-            1,
             new Money(14500, new Currency('EUR'))
         );
 
@@ -89,6 +88,9 @@ class ComboProductTest extends TestCase
         );
     }
 
+    /**
+     * @throws AssertionFailedException
+     */
     public function testInvalidComboProduct(): void
     {
         $this->expectException(AssertionFailedException::class);
@@ -96,20 +98,17 @@ class ComboProductTest extends TestCase
             new PhysicalProduct(
                 Uuid::uuid4(),
                 'WebShopProduct',
-                1,
                 new Money(12000, new Currency('EUR')),
 
             )
-        ],1);
+        ]);
     }
-
 
     public function testSinglePhysicalProduct(): void
     {
         $product = new PhysicalProduct(
             Uuid::fromString('edc262a3-0d57-4801-84ff-81409a7a6183'),
             "MyProductName",
-            1,
             new Money(12000, new Currency('EUR'))
         );
 

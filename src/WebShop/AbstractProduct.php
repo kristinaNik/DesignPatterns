@@ -21,10 +21,6 @@ class AbstractProduct implements Product
      */
     protected string $name;
 
-    /**
-     * @var int
-     */
-    protected int  $productQuantity;
 
     /**
      * @var Money|null
@@ -36,14 +32,12 @@ class AbstractProduct implements Product
      * AbstractProduct constructor.
      * @param UuidInterface $uuid
      * @param string $name
-     * @param int $productQuantity
      * @param Money|null $unitPrice
      */
-    public function __construct(UuidInterface $uuid, string $name, int $productQuantity, Money $unitPrice=null)
+    public function __construct(UuidInterface $uuid, string $name,  Money $unitPrice=null)
     {
         $this->sku = $uuid;
         $this->name = $name;
-        $this->productQuantity = $productQuantity;
         $this->unitPrice = $unitPrice;
     }
 
@@ -73,13 +67,5 @@ class AbstractProduct implements Product
     {
         return  $this->unitPrice;
 
-    }
-
-    /**
-     * @return int
-     */
-    public function getProductQuantity(): int
-    {
-        return $this->productQuantity;
     }
 }

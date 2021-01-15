@@ -24,9 +24,9 @@ class ComboProduct extends AbstractProduct
      * @param Money|null $unitPrice
      * @throws \Assert\AssertionFailedException
      */
-    public function __construct(UuidInterface $uuid, string $name, array $products,  $quantity, Money $unitPrice = null)
+    public function __construct(UuidInterface $uuid, string $name, array $products, Money $unitPrice = null)
     {
-        parent::__construct($uuid, $name, $quantity, $unitPrice);
+        parent::__construct($uuid, $name, $unitPrice);
 
         Assertion::allIsInstanceOf($products, Product::class);
         Assertion::min(count($products),2);

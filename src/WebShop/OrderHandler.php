@@ -7,14 +7,15 @@ class OrderHandler
 {
     /**
      * @param AbstractProduct $product
+     * @param int $quantity
+     *
      * @return Order
+     *
      * @throws \Exception
      */
-    public function handle(AbstractProduct $product): Order
+    public function add(AbstractProduct $product, int $quantity): Order
     {
-       return OrderFactory::createOrders($product->getSku(), $product->getUnitPrice(), $product->getName(), $product->getProductQuantity(), new \DateTimeImmutable('now'));
+       return OrderFactory::createOrders($product, $quantity);
     }
-
-
 
 }

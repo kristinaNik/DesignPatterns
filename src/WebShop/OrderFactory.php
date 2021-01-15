@@ -4,22 +4,18 @@
 namespace DesignPatterns\WebShop;
 
 
-use Money\Money;
-use Ramsey\Uuid\UuidInterface;
-
 class OrderFactory
 {
     /**
-     * @param UuidInterface $productSku
-     * @param Money $amount
-     * @param string $name
+     * @param AbstractProduct $products
      * @param int $quantity
-     * @param \DateTimeImmutable $timestamp
+     *
      * @return Order
+     *
+     * @throws \Exception
      */
-    public static  function createOrders(UuidInterface $productSku, Money $amount, string $name, int $quantity, \DateTimeImmutable $timestamp): Order
+    public static  function createOrders(AbstractProduct $products, int $quantity): Order
     {
-        return new Order($productSku, $amount,$name, $quantity, $timestamp);
+        return new Order($products, $quantity);
     }
-
 }
