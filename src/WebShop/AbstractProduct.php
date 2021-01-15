@@ -9,8 +9,8 @@ use Ramsey\Uuid\UuidInterface;
 
 class AbstractProduct implements Product
 {
-    //Value objects are immutable by design and anywhere where you want to use them in your code, their value will not change;
-    //Value objects also have types , so this bring type safety
+    //Value objects are immutable by design
+    //Value objects also have types, so this bring type safety
 
     /* @var UuidInterface
      */
@@ -22,6 +22,11 @@ class AbstractProduct implements Product
     protected string $name;
 
     /**
+     * @var int
+     */
+    protected int  $productQuantity;
+
+    /**
      * @var Money|null
      */
     protected $unitPrice;
@@ -31,12 +36,14 @@ class AbstractProduct implements Product
      * AbstractProduct constructor.
      * @param UuidInterface $uuid
      * @param string $name
-     * @param null $unitPrice
+     * @param int $productQuantity
+     * @param Money|null $unitPrice
      */
-    public function __construct(UuidInterface $uuid, string $name, Money $unitPrice=null)
+    public function __construct(UuidInterface $uuid, string $name, int $productQuantity, Money $unitPrice=null)
     {
         $this->sku = $uuid;
         $this->name = $name;
+        $this->productQuantity = $productQuantity;
         $this->unitPrice = $unitPrice;
     }
 
@@ -66,5 +73,13 @@ class AbstractProduct implements Product
     {
         return  $this->unitPrice;
 
+    }
+
+    /**
+     * @return int
+     */
+    public function getProductQuantity(): int
+    {
+        return $this->productQuantity;
     }
 }

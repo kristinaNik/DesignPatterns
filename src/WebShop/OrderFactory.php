@@ -9,17 +9,17 @@ use Ramsey\Uuid\UuidInterface;
 
 class OrderFactory
 {
-
     /**
      * @param UuidInterface $productSku
      * @param Money $amount
-     * @param $name
+     * @param string $name
+     * @param int $quantity
      * @param \DateTimeImmutable $timestamp
      * @return Order
      */
-    public static  function createOrders(UuidInterface $productSku, Money $amount, string $name, \DateTimeImmutable $timestamp): Order
+    public static  function createOrders(UuidInterface $productSku, Money $amount, string $name, int $quantity, \DateTimeImmutable $timestamp): Order
     {
-        return new Order($productSku, $amount,$name, $timestamp);
+        return new Order($productSku, $amount,$name, $quantity, $timestamp);
     }
 
 }

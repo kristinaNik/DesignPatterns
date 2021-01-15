@@ -12,7 +12,7 @@ class OrderHandler
      */
     public function handle(AbstractProduct $product): Order
     {
-       return OrderFactory::createOrders($product->getSku(), $product->getUnitPrice(), $product->getName(), new \DateTimeImmutable('now'));
+       return OrderFactory::createOrders($product->getSku(), $product->getUnitPrice(), $product->getName(), $product->getProductQuantity(), new \DateTimeImmutable('now'));
     }
 
 

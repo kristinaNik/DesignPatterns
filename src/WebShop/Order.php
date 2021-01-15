@@ -17,6 +17,9 @@ class Order
      */
     private $id;
 
+    /**
+     * @var int
+     */
     private $timestamp;
 
     /**
@@ -34,6 +37,10 @@ class Order
      */
     private $productName;
 
+    /**
+     * @var int
+     */
+    private int $quantity;
 
     /**
      * Order constructor.
@@ -41,14 +48,16 @@ class Order
      * @param UuidInterface $productSku
      * @param Money $amount
      * @param string $productName
+     * @param int $quantity
      * @param \DateTimeImmutable $timestamp
      */
-    public function __construct(UuidInterface $productSku, Money $amount, string $productName, \DateTimeImmutable $timestamp)
+    public function __construct(UuidInterface $productSku, Money $amount, string $productName, int $quantity, \DateTimeImmutable $timestamp)
     {
         $this->id = Uuid::uuid4();
         $this->productSku = $productSku;
         $this->amount = $amount;
         $this->productName = $productName;
+        $this->quantity = $quantity;
         $this->timestamp = (int) $timestamp->format('U');
     }
 
@@ -92,6 +101,14 @@ class Order
     public function getTimestamp()
     {
         return \DateTimeImmutable::createFromFormat('U', $this->timestamp);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getQuantity()
+    {
+        return $this->quantity;
     }
 
 }

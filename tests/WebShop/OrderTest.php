@@ -35,11 +35,14 @@ class OrderTest extends TestCase
         $product =  new PhysicalProduct(
             Uuid::fromString('edc262a3-0d57-4801-84ff-81409a7a6183'),
             'Product1',
+            2,
             new Money(12000, new Currency('EUR')),
 
         );
 
         $order = $this->orderHandler->handle($product);
+
+        $this->assertEquals(2, $order->getQuantity());
 
         $this->assertEquals(
             'Product1',
@@ -63,12 +66,14 @@ class OrderTest extends TestCase
             new PhysicalProduct(
                 Uuid::fromString('edc262a3-0d57-4801-84ff-81409a7a6183'),
                 'Product1',
+                2,
                 new Money(12000, new Currency('EUR')),
 
             ),
             new PhysicalProduct(
                 Uuid::fromString('edc262a3-0d57-4801-84ff-81409a7a6183'),
                 'Product2',
+                1,
                 new Money(9000, new Currency('EUR')),
 
             )
@@ -78,9 +83,12 @@ class OrderTest extends TestCase
             Uuid::fromString('edc262a3-0d57-4802-84ff-81409a7a6183'),
             'TestComboProduct',
             $products,
+            1,
         );
 
         $order = $this->orderHandler->handle($comboProduct);
+
+        $this->assertEquals(1, $order->getQuantity());
 
         $this->assertEquals(
             'TestComboProduct',
@@ -104,7 +112,8 @@ class OrderTest extends TestCase
     {
         $product =  new PhysicalProduct(
             Uuid::fromString('edc262a3-0d57-4801-84ff-81409a7a6183'),
-            'WebSummerCamp',
+            'PhysicalProduct',
+            1,
             new Money(12000, new Currency('EUR')),
 
         );
@@ -118,4 +127,39 @@ class OrderTest extends TestCase
         $this->assertObjectHasAttribute("timestamp", $order);
     }
 
+
+    public function testProductNameFromTwoDifferentOrders()
+    {
+        $product1 =  new PhysicalProduct(
+            Uuid::fromString('edc262a3-0d57-4801-84ff-81409a7a6183'),
+            'Product1',
+            1,
+            new Money(12000, new Currency('EUR')),
+
+        );
+
+        $product2 =  new ComboProduct(
+            Uuid::fromString('edc262a3-0d57-4802-84ff-81409a7a6183'),
+            'TestComboProduct',
+            [
+                $product1,
+                new PhysicalProduct(
+                    Uuid::fromString('edc262a3-0d57-4801-84ff-81409a7a6183'),
+                    'ProductTest',
+                    1,
+                    new Money(12000, new Currency('EUR')),
+
+                )
+            ],
+            1,
+        );
+
+        $order1 = $this->orderHandler->handle($product1);
+        $order2 = $this->orderHandler->handle($product2);
+
+        $this->assertEquals($product1->getName(), $order1->getProductName());
+        $this->assertEquals($product2->getName(), $order2->getProductName());
+        $this->assertNotEquals($order1, $order2);
+
+    }
 }
