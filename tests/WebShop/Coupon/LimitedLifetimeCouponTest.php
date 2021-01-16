@@ -4,6 +4,8 @@ namespace DesignPatterns\Tests\WebShop\Coupon;
 
 use DesignPatterns\WebShop\Coupon\DateRange;
 use DesignPatterns\WebShop\Coupon\LimitedLifetimeCoupon;
+use DesignPatterns\WebShop\Coupon\MinimumPurchaseAmountCoupon;
+use DesignPatterns\WebShop\Coupon\RateCoupon;
 use DesignPatterns\WebShop\Coupon\ValueCoupon;
 use Money\Currency;
 use Money\Money;
@@ -12,6 +14,24 @@ use Symfony\Bridge\PhpUnit\ClockMock;
 
 class LimitedLifetimeCouponTest extends TestCase
 {
+
+    /**
+     * @throws \Assert\AssertionFailedException
+     */
+    public function testComplexCouponCombination(): void
+    {
+        ClockMock::withClockMock('2021-06-11 10:30:30');
+
+        $coupon = new LimitedLifetimeCoupon(
+            new MinimumPurchaseAmountCoupon(
+                new RateCoupon('COUPON1', 0.20), //discount from amount
+                new Money(7000, new Currency('EUR') ) //minimum amount
+            ),
+            new DateRange(new \DateTimeImmutable('2021-01-01 00:00:00'), new \DateTimeImmutable('2021-12-31 23:59:59'))
+        );
+
+        $this->assertEquals(new Money(16000, new Currency('EUR')),$coupon->apply(new Money(20000, new Currency('EUR'))));
+    }
 
     public function testCouponIsEligible(): void
     {

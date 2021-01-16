@@ -7,7 +7,7 @@ abstract class RestrictedCoupon implements Coupon
     /**
      * @var Coupon
      */
-    private Coupon $coupon;
+    protected Coupon $coupon;
 
     /**
      * RestrictedCoupon constructor.

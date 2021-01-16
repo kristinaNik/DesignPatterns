@@ -12,11 +12,6 @@ class LimitedLifetimeCoupon extends RestrictedCoupon
     private DateRange $dateRange;
 
     /**
-     * @var Coupon
-     */
-    private Coupon $coupon;
-
-    /**
      * LimitedLifetimeCoupon constructor.
      * @param Coupon $coupon
      * @param DateRange $dateRange
@@ -29,7 +24,6 @@ class LimitedLifetimeCoupon extends RestrictedCoupon
         parent::__construct($coupon);
 
         $this->dateRange = $dateRange;
-        $this->coupon = $coupon;
     }
 
     /**
