@@ -16,7 +16,7 @@ class CouponBuilder
      * CouponBuilder constructor.
      * @param Coupon $coupon
      */
-    public function __construct(Coupon $coupon)
+    private function __construct(Coupon $coupon)
     {
         $this->coupon = $coupon;
     }
@@ -46,27 +46,26 @@ class CouponBuilder
     }
 
     /**
-     * @param $validFrom
-     * @param $validTwo
-     * @return DateRange
+     * @param string $validFrom
+     * @param string $validTwo
+     * @return $this
+     * @throws \Exception
      */
-    public static function dateRange(\DateTimeImmutable $validFrom, \DateTimeImmutable $validTwo): DateRange
+    public function mustBeValidBetween(string $validFrom, string $validTwo): self
     {
-        return new DateRange($validFrom, $validTwo);
+        $this->coupon = new LimitedLifetimeCoupon(
+            $this->coupon,
+            new DateRange($validFrom,$validTwo)
+        );
+
+        return $this;
     }
 
-    /**
-     * @param Coupon $couponType
-     * @param DateRange $dateRange
-     *
-     * @return LimitedLifetimeCoupon
-     */
-    public static function limitedLifetimeCoupon(Coupon $couponType, DateRange $dateRange): LimitedLifetimeCoupon
+    public function mustRequireMinimumPurchaseAmount(Money $amount): self
     {
-        return new LimitedLifetimeCoupon(
-            $couponType,
-            $dateRange
-        );
+        $this->coupon = new MinimumPurchaseAmountCoupon($this->coupon, $amount);
+
+        return $this;
     }
 
     /**

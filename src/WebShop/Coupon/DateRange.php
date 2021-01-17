@@ -17,13 +17,14 @@ class DateRange
 
     /**
      * DateRange constructor.
-     * @param \DateTimeImmutable $validFrom
-     * @param \DateTimeImmutable $validTo
+     * @param string $validFrom
+     * @param string $validTo
+     * @throws \Exception
      */
-    public function __construct(\DateTimeImmutable $validFrom, \DateTimeImmutable $validTo)
+    public function __construct(string $validFrom, string $validTo)
     {
-        $this->validFrom = $validFrom;
-        $this->validTo = $validTo;
+        $this->validFrom = new \DateTimeImmutable($validFrom);
+        $this->validTo = new \DateTimeImmutable($validTo);
     }
 
     /**
