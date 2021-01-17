@@ -1,8 +1,7 @@
 <?php
 
 
-namespace DesignPatterns\WebShop\Coupon;
-
+namespace DesignPatterns\WebShop\Coupon\Interfaces;
 
 use Money\Money;
 

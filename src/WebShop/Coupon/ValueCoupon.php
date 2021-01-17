@@ -1,8 +1,7 @@
 <?php
-
-
 namespace DesignPatterns\WebShop\Coupon;
 
+use DesignPatterns\WebShop\Coupon\Interfaces\Coupon;
 use Money\Money;
 
 class ValueCoupon implements Coupon

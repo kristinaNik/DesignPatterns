@@ -2,7 +2,6 @@
 
 namespace DesignPatterns\WebShop\Coupon;
 
-
 class DateRange
 {
     /**

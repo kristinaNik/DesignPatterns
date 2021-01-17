@@ -4,6 +4,7 @@
 namespace DesignPatterns\WebShop\Coupon;
 
 use Assert\Assertion;
+use DesignPatterns\WebShop\Coupon\Interfaces\Coupon;
 use Money\Money;
 
 class RateCoupon implements Coupon

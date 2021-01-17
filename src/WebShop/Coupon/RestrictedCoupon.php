@@ -2,6 +2,8 @@
 
 namespace DesignPatterns\WebShop\Coupon;
 
+use DesignPatterns\WebShop\Coupon\Interfaces\Coupon;
+
 abstract class RestrictedCoupon implements Coupon
 {
     /**
